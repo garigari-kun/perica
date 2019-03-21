@@ -17,13 +17,13 @@ func NewTrelloClient() *TrelloClient {
   return &TrelloClient{Config: config, Client: client}
 }
 
-func (t *TrelloClient) CreateCard() {
+func (t *TrelloClient) CreateCard(title string, desc string) {
   list, err := t.Client.GetList(t.Config.ListId, trello.Defaults())
   if err != nil {
     log.Print(err)
   }
 
-  err = list.AddCard(&trello.Card{ Name: "yeah", Desc: "Card Description" }, trello.Defaults())
+  err = list.AddCard(&trello.Card{ Name: title, Desc: desc }, trello.Defaults())
   if err != nil {
     log.Print(err)
   }
