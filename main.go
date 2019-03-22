@@ -1,6 +1,7 @@
 package main
 
 import (
+  "fmt"
   // "log"
   "github.com/garigari-kun/perica/client"
   // "github.com/garigari-kun/perica/scraper"
@@ -14,7 +15,10 @@ func main() {
   // desc := "ref " + scr.Url
   // client.CreateCard(title, desc)
   // client.NewGitHubClient()
-  client.NewGitHubClient("https://github.com/garigari-kun/shutto/issues/5")
+  github_client := client.NewGitHubClient("https://github.com/garigari-kun/shutto/issues/5")
+  title, body := github_client.GetIssueTitleAndBody("https://github.com/garigari-kun/shutto/issues/5")
+  fmt.Println(title)
+  fmt.Println(body)
 }
 
 // You can get app-key and token from here https://trello.com/app-key

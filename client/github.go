@@ -20,6 +20,10 @@ type UrlDivider struct {
   Id int
 }
 
+type GitHubClient struct {
+  Client *github.Client
+}
+
 func NewUrlDivider(input_url string) *UrlDivider {
   u, err := url.Parse(input_url)
   if err != nil {
@@ -30,8 +34,7 @@ func NewUrlDivider(input_url string) *UrlDivider {
   return &UrlDivider{Domain: u.Hostname(), Org: parts[1], Repo: parts[2], Type: parts[3], Id: i}
 }
 
-
-func NewGitHubClient(input_url string) {
+func NewGitHubClient(input_url string) *GitHubClient {
   divided_url := NewUrlDivider(input_url)
   config := config.NewGithubConfig()
   ts := oauth2.StaticTokenSource(&oauth2.Token{AccessToken: config.Token})
@@ -44,10 +47,15 @@ func NewGitHubClient(input_url string) {
     }
     client.BaseURL = enterpriseURL
   }
-  issue, _, err := client.Issues.Get(context.Background(), divided_url.Org, divided_url.Repo, divided_url.Id)
+  return &GitHubClient{Client: client}
+}
+
+func (self *GitHubClient) GetIssueTitleAndBody(input_url string) (string, string) {
+  divided_url := NewUrlDivider(input_url)
+  issue, _, err := self.Client.Issues.Get(context.Background(), divided_url.Org, divided_url.Repo, divided_url.Id)
   if err != nil {
     log.Print(nil)
   }
-  fmt.Println(*issue.Title)
-  fmt.Println(*issue.Body)
+
+  return *issue.Title, *issue.Body
 }
