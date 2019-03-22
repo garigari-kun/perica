@@ -1,3 +1,6 @@
 ## perica
 
-Markdown file to Trello card!
+Github/Github Enterprise Issue to Trello Card!
+
+## WIP
+Actually, WIP
