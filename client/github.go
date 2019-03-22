@@ -5,6 +5,7 @@ import (
   "log"
   "golang.org/x/oauth2"
   "github.com/google/go-github/github"
+  "github.com/garigari-kun/perica/config"
   "context"
   "net/url"
   "strings"
@@ -32,7 +33,8 @@ func NewUrlDivider(input_url string) *UrlDivider {
 
 func NewGitHubClient(input_url string) {
   divided_url := NewUrlDivider(input_url)
-  ts := oauth2.StaticTokenSource(&oauth2.Token{AccessToken: ""})
+  config := config.NewGithubConfig()
+  ts := oauth2.StaticTokenSource(&oauth2.Token{AccessToken: config.Token})
   tc := oauth2.NewClient(oauth2.NoContext,ts)
   client := github.NewClient(tc)
   if divided_url.Domain != "github.com" {
