@@ -4,6 +4,11 @@ Github/Github Enterprise Issue to Trello Card!
 
 ## Setup
 
+First, go get!
+```
+$ go get -u github.com/garigari-kun/perica
+```
+
 You need to create the config file for accessing your Trello Account and Github Account.  
 Example is [this one](https://github.com/garigari-kun/perica/blob/master/example/.perica)
 ``` sh
