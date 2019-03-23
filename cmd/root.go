@@ -17,6 +17,8 @@ func RootCmd() *cobra.Command {
       }
       input_url := args[0]
       github_client := client.NewGitHubClient(input_url)
+      divided_url := client.NewUrlDivider(input_url)
+      log.Fatal(*divided_url)
       title, body := github_client.GetIssueTitleAndBody(input_url)
       client := client.NewTrelloClient()
       client.CreateCard(title, body)

@@ -59,3 +59,12 @@ func (self *GitHubClient) GetIssueTitleAndBody(input_url string) (string, string
 
   return *issue.Title, *issue.Body
 }
+
+func (self *GitHubClient) GetPrTitleAndBody(input_url string) (string, string) {
+  divided_url := NewUrlDivider(input_url)
+  pr, _, err := self.Client.PullRequests.Get(context.Background(), divided_url.Org, divided_url.Repo, divided_url.Id)
+  if err != nil {
+    log.Print(nil)
+  }
+  return *pr.Title, *pr.Body
+}
