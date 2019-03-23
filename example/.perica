@@ -1,0 +1,4 @@
+app_key = "YOUR_TRELLO_APP_KEY"
+token = "YOUR_TRELLO_APP_TOKEN"
+list_id = "YOUR_TRELLO_LIST_ID"
+github_token = "YOUR_GITHUB_ACCESS_TOKEN"
