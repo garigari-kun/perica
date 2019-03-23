@@ -20,10 +20,12 @@ func RootCmd() *cobra.Command {
       divided_url := client.NewUrlDivider(input_url)
       if divided_url.Type == "pull" {
         title, body := github_client.GetPrTitleAndBody(input_url)
+        body = body + "\n" + "ref: " + input_url
         client := client.NewTrelloClient()
         client.CreateCard(title, body)
       } else if divided_url.Type == "issues" {
         title, body := github_client.GetIssueTitleAndBody(input_url)
+        body = body + "\n" + "ref: " + input_url
         client := client.NewTrelloClient()
         client.CreateCard(title, body)
       }
