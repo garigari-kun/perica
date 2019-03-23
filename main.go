@@ -9,4 +9,3 @@ import (
 func main() {
   cmd.Execute()
 }
-// You can get app-key and token from here https://trello.com/app-key
