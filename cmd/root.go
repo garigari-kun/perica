@@ -17,9 +17,16 @@ func RootCmd() *cobra.Command {
       }
       input_url := args[0]
       github_client := client.NewGitHubClient(input_url)
-      title, body := github_client.GetIssueTitleAndBody(input_url)
-      client := client.NewTrelloClient()
-      client.CreateCard(title, body)
+      divided_url := client.NewUrlDivider(input_url)
+      if divided_url.Type == "pull" {
+        title, body := github_client.GetPrTitleAndBody(input_url)
+        client := client.NewTrelloClient()
+        client.CreateCard(title, body)
+      } else if divided_url.Type == "issues" {
+        title, body := github_client.GetIssueTitleAndBody(input_url)
+        client := client.NewTrelloClient()
+        client.CreateCard(title, body)
+      }
     },
   }
   return cmd
