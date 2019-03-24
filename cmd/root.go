@@ -4,7 +4,11 @@ import (
   "github.com/spf13/cobra"
   "os"
   "log"
+  "fmt"
+  "strings"
+  "net/url"
   "github.com/garigari-kun/perica/client"
+  "github.com/adlio/trello"
 )
 
 func RootCmd() *cobra.Command {
@@ -16,6 +20,27 @@ func RootCmd() *cobra.Command {
         log.Fatal("You need to parse issue url!")
       }
       input_url := args[0]
+      u, err := url.Parse(input_url)
+      if err != nil {
+        log.Fatal(err)
+      }
+      if u.Hostname() == "trello.com" {
+        parts := strings.Split(u.RequestURI(), "/")
+        trello_client := client.NewTrelloClient()
+        board, err := trello_client.Client.GetBoard(parts[2], trello.Defaults())
+        if err != nil {
+          log.Fatal("Board Not Found.")
+        }
+        lists, err := board.GetLists(trello.Defaults())
+        if err != nil {
+          log.Fatal("List not found.")
+        }
+        log.Print(lists)
+        for _, list := range lists {
+          fmt.Println("List ID: " + list.ID + "  " + "[" + list.Name + "]")
+        }
+        log.Fatal("Lists are above.")
+      }
       github_client := client.NewGitHubClient(input_url)
       divided_url := client.NewUrlDivider(input_url)
       if divided_url.Type == "pull" {
