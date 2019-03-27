@@ -21,6 +21,11 @@ list_id = "YOUR_TRELLO_LIST_ID"
 github_token = "YOUR_GITHUB_ACCESS_TOKEN"
 ```
 
+If you don't know Trello List id, you can check with this command.
+```
+$ https://trello.com/b/board_id/board_name
+```
+
 You can get ` YOUR_TRELLO_APP_KEY ` and ` YOUR_TRELLO_APP_TOKEN ` from [here](https://trello.com/app-key)
 
 You can get ` YOUR_GITHUB_ACCESS_TOKEN ` from [here](https://github.com/settings/tokens)
