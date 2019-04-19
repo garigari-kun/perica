@@ -26,6 +26,8 @@ func (t *TrelloClient) CreateCard(title string, desc string) {
   err = list.AddCard(&trello.Card{ Name: title, Desc: desc }, trello.Defaults())
   if err != nil {
     log.Print(err)
+    log.Print("Card could not be created.")
+  } else {
+    log.Print("Card successfully created.")
   }
-  log.Print("Card successfully created.")
 }
